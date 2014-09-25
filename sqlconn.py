@@ -2,8 +2,9 @@ __author__ = 'bernardo'
 
 
 class aa:
-    pass
+    bb = 32
 
 aa.uu = 11
+vars(aa)['ca'] = 332
 
-print aa.__dict__
+print vars(aa)

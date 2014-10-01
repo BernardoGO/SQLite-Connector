@@ -2,11 +2,16 @@ __author__ = 'bernardo'
 
 import sqlite3 as lite
 
+con = None
 
 class entity:
-    pass
-
-con = None
+    def buildEntity(self, table):
+        global con
+        cur = con.cursor()
+        cur.execute("pragma table_info('"+table+"')")
+        rows = cur.fetchall()
+        for x in range(0, len(rows)):
+            print rows[x]
 
 def connect(filename):
     global con
@@ -28,8 +33,9 @@ def readTable(tableName, where = ""):
 
         dataset.append(rox)
 
-
     return dataset
+
+
 
 
 """
@@ -40,5 +46,7 @@ print vars(aa)
 """
 if __name__ == "__main__":
     connect("test.db")
-    datase = readTable("Users")
-    print vars(datase[0])
+    #datase = readTable("Users")
+    #print vars(datase[1])
+    x = entity()
+    x.buildEntity("Users")

@@ -21,10 +21,10 @@ def readTable(tableName, where = ""):
     fieldnames=[f[0] for f in cur.description]
     dataset = []
     print fieldnames
-    for x in rows:
+    for x in range(0, len(rows)):
         rox = entity()
         print x
-        #vars(rox)[] x['Id']
+        vars(rox)[] x['Id']
 
 
 

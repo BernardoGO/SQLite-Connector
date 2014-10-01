@@ -20,14 +20,16 @@ def readTable(tableName, where = ""):
     rows = cur.fetchall()
     fieldnames=[f[0] for f in cur.description]
     dataset = []
-    print fieldnames
+
     for x in range(0, len(rows)):
         rox = entity()
-        print x
-        vars(rox)[] x['Id']
+        for y in range(0, len(fieldnames)):
+            vars(rox)[fieldnames[y]] = rows[x][str(fieldnames[y])]
+
+        dataset.append(rox)
 
 
-
+    return dataset
 
 
 """
@@ -38,4 +40,5 @@ print vars(aa)
 """
 if __name__ == "__main__":
     connect("test.db")
-    readTable("Users")
+    datase = readTable("Users")
+    print vars(datase[0])

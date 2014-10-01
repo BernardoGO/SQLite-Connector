@@ -18,12 +18,13 @@ def readTable(tableName, where = ""):
     cur = con.cursor()
     cur.execute("SELECT * FROM " + tableName)
     rows = cur.fetchall()
-
+    fieldnames=[f[0] for f in cur.description]
     dataset = []
-
+    print fieldnames
     for x in rows:
         rox = entity()
-        vars(rox)[] x['Id']
+        print x
+        #vars(rox)[] x['Id']
 
 
 
@@ -36,4 +37,5 @@ vars(aa)['ca'] = 332
 print vars(aa)
 """
 if __name__ == "__main__":
-    connect("test")
+    connect("test.db")
+    readTable("Users")

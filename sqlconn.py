@@ -3,6 +3,8 @@ __author__ = 'bernardo'
 import sqlite3 as lite
 
 
+class entity:
+    pass
 
 con = None
 
@@ -12,10 +14,17 @@ def connect(filename):
     con.row_factory = lite.Row
 
 def readTable(tableName, where = ""):
+    global con
+    cur = con.cursor()
+    cur.execute("SELECT * FROM " + tableName)
+    rows = cur.fetchall()
 
+    dataset = []
 
-class entity:
-    pass
+    for x in rows:
+        rox = entity()
+        vars(rox)[] x['Id']
+
 
 
 
@@ -27,3 +36,4 @@ vars(aa)['ca'] = 332
 print vars(aa)
 """
 if __name__ == "__main__":
+    connect("test")

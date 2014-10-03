@@ -11,7 +11,11 @@ class entity:
         cur.execute("pragma table_info('"+table+"')")
         rows = cur.fetchall()
         for x in range(0, len(rows)):
-            print rows[x]
+            rox = entity()
+
+            vars(rox)[fieldnames[y]] = rows[x][str(fieldnames[y])]
+
+            dataset.append(rox)
 
 def connect(filename):
     global con

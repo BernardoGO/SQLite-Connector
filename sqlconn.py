@@ -5,14 +5,16 @@ import sqlite3 as lite
 con = None
 
 class entity:
+    _tableName = ""
     def buildEntity(self, table):
         global con
         cur = con.cursor()
         cur.execute("pragma table_info('"+table+"')")
         rows = cur.fetchall()
         for x in range(0, len(rows)):
+
             vars(self)[rows[x][(1)]] = None
-        self.tableName = table
+        self._tableName = table
         return self
 
 def connect(filename):
@@ -32,22 +34,29 @@ def readTable(tableName, where = ""):
         rox = entity()
         for y in range(0, len(fieldnames)):
             vars(rox)[fieldnames[y]] = rows[x][str(fieldnames[y])]
-        rox.tableName = tableName
+        rox._tableName = tableName
         dataset.append(rox)
 
     return dataset
 
-def writeTable(entity, tableName=entity.tableName):
+def writeTable(entity, tableName=entity._tableName):
     global con
     cur = con.cursor()
     fields = ""
     values = ""
 
-    cur.execute("INSERT INTO "+tableName+" "+fields+" VALUES ("+values+")")
+
+    for _ in xrange(0, len(vars(entity).keys())):
+        if str(vars(entity).keys()[_]).startswith("_") == False:
+            fields += str(vars(entity).keys()[_]) + ","
+            values += "'"+str(vars(entity).values()[_])+"'"+","
+
+    strs = "INSERT INTO "+tableName+" ("+fields[:-1]+") VALUES ("+values+")"
+    print strs
+    cur.execute(strs)
     affectedRows = cur.rowcount
     if affectedRows >= 1:
-        javascript.alert(self, "Process returned 0 (0x0)")
-        javascript.redirect(self, "index.py")
+        print "OK"
 
 
 
@@ -65,4 +74,7 @@ if __name__ == "__main__":
 
     x = entity()
     x.buildEntity("Users")
-    print x.Id
+    x.login = "connnn"
+    x.password = "connnn"
+
+    writeTable(x)

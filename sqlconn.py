@@ -39,23 +39,24 @@ def readTable(tableName, where = ""):
 
     return dataset
 
-def writeTable(entity, tableName=entity._tableName):
+def writeTable(entity, tableName=""):
     global con
     cur = con.cursor()
     fields = ""
     values = ""
-
+    if tableName == "": tableName = entity._tableName
 
     for _ in xrange(0, len(vars(entity).keys())):
-        if str(vars(entity).keys()[_]).startswith("_") == False:
+        if str(vars(entity).keys()[_]).startswith("_") == False and (vars(entity).values()[_] is not None):
             fields += str(vars(entity).keys()[_]) + ","
             values += "'"+str(vars(entity).values()[_])+"'"+","
-
-    strs = "INSERT INTO "+tableName+" ("+fields[:-1]+") VALUES ("+values+")"
+    ax = lambda __:__[:-1];
+    strs = "INSERT INTO "+tableName+" ("+ax(fields)+") VALUES ("+ax(values)+")"
     print strs
     cur.execute(strs)
     affectedRows = cur.rowcount
     if affectedRows >= 1:
+        con.commit()
         print "OK"
 
 
@@ -69,12 +70,13 @@ print vars(aa)
 """
 if __name__ == "__main__":
     connect("test.db")
-    #datase = readTable("Users")
-    #print vars(datase[1])
+
 
     x = entity()
     x.buildEntity("Users")
-    x.login = "connnn"
-    x.password = "connnn"
+    x.login = "conn2nn"
+    x.password = "conn2nn"
 
     writeTable(x)
+    datase = readTable("Users")
+    for x in xrange(0, len(datase)): print vars(datase[x])

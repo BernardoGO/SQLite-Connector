@@ -50,6 +50,7 @@ if __name__ == "__main__":
     connect("test.db")
     #datase = readTable("Users")
     #print vars(datase[1])
+
     x = entity()
     x.buildEntity("Users")
     print x.Id

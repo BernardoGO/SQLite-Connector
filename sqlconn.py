@@ -11,11 +11,9 @@ class entity:
         cur.execute("pragma table_info('"+table+"')")
         rows = cur.fetchall()
         for x in range(0, len(rows)):
-            rox = entity()
+            vars(self)[rows[x][(1)]] = None
 
-            vars(rox)[fieldnames[y]] = rows[x][str(fieldnames[y])]
-
-            dataset.append(rox)
+        return self
 
 def connect(filename):
     global con
@@ -54,3 +52,4 @@ if __name__ == "__main__":
     #print vars(datase[1])
     x = entity()
     x.buildEntity("Users")
+    print x.Id

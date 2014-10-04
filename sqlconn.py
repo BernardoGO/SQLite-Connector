@@ -12,7 +12,7 @@ class entity:
         rows = cur.fetchall()
         for x in range(0, len(rows)):
             vars(self)[rows[x][(1)]] = None
-
+        self.tableName = table
         return self
 
 def connect(filename):
@@ -32,10 +32,22 @@ def readTable(tableName, where = ""):
         rox = entity()
         for y in range(0, len(fieldnames)):
             vars(rox)[fieldnames[y]] = rows[x][str(fieldnames[y])]
-
+        rox.tableName = tableName
         dataset.append(rox)
 
     return dataset
+
+def writeTable(entity, tableName=entity.tableName):
+    global con
+    cur = con.cursor()
+    fields = ""
+    values = ""
+
+    cur.execute("INSERT INTO "+tableName+" "+fields+" VALUES ("+values+")")
+    affectedRows = cur.rowcount
+    if affectedRows >= 1:
+        javascript.alert(self, "Process returned 0 (0x0)")
+        javascript.redirect(self, "index.py")
 
 
 

@@ -29,9 +29,10 @@ def readTable(tableName, whereEntity = None):
     if whereEntity is not None:
         where += " WHERE "
         for _ in xrange(0, len(vars(whereEntity).keys())):
-            if str(vars(whereEntity).keys()[_]).startswith("_") == False and (vars(whereEntity).values()[_] is not None):
-                #WHERE login = 'login' and password = 'password'
-                where += str(vars(whereEntity).keys()[_]) + " = '" + ""+str(vars(whereEntity).values()[_])+"'"+" and "
+            if str(vars(whereEntity).keys()[_]).startswith("_") == False \
+                    and (vars(whereEntity).values()[_] is not None):
+                where += str(vars(whereEntity).keys()[_]) + " = '" + \
+                         ""+str(vars(whereEntity).values()[_])+"'"+" and "
 
     strds = "SELECT * FROM " + tableName + where[:-5]
     print strds
@@ -58,7 +59,8 @@ def writeTable(entity, tableName=""):
     if tableName == "": tableName = entity._tableName
 
     for _ in xrange(0, len(vars(entity).keys())):
-        if str(vars(entity).keys()[_]).startswith("_") == False and (vars(entity).values()[_] is not None):
+        if str(vars(entity).keys()[_]).startswith("_") == False \
+                and (vars(entity).values()[_] is not None):
             fields += str(vars(entity).keys()[_]) + ","
             values += "'"+str(vars(entity).values()[_])+"'"+","
     ax = lambda __:__[:-1];

@@ -28,12 +28,12 @@ def readTable(tableName, whereEntity = None):
     where = ""
     if whereEntity is not None:
         where += " WHERE "
-        for _ in xrange(0, len(vars(entity).keys())):
-            if str(vars(entity).keys()[_]).startswith("_") == False and (vars(entity).values()[_] is not None):
+        for _ in xrange(0, len(vars(whereEntity).keys())):
+            if str(vars(whereEntity).keys()[_]).startswith("_") == False and (vars(whereEntity).values()[_] is not None):
                 #WHERE login = 'login' and password = 'password'
-                where += str(vars(entity).keys()[_]) + " = '" + "'"+str(vars(entity).values()[_])+"'"+" and "
+                where += str(vars(whereEntity).keys()[_]) + " = '" + ""+str(vars(whereEntity).values()[_])+"'"+" and "
 
-    strds = "SELECT * FROM " + tableName + where
+    strds = "SELECT * FROM " + tableName + where[:-5]
     print strds
     cur.execute(strds)
 
@@ -85,8 +85,8 @@ if __name__ == "__main__":
 
     x = entity()
     x.buildEntity("Users")
-    x.login = "conn2nn"
-    x.password = "conn2nn"
+    x.login = "admin"
+    x.password = "admin"
 
     #writeTable(x)
     datase = readTable("Users", x)

@@ -22,10 +22,18 @@ def connect(filename):
     con = lite.connect(filename)
     con.row_factory = lite.Row
 
-def readTable(tableName, where = ""):
+def readTable(tableName, whereEntity = None):
     global con
     cur = con.cursor()
+    where = ""
+    if whereEntity is not None:
+        where += "WHERE "
+        for _ in xrange(0, len(vars(entity).keys())):
+            if str(vars(entity).keys()[_]).startswith("_") == False and (vars(entity).values()[_] is not None):
+                #WHERE login = 'login' and password = 'password'
+                where += str(vars(entity).keys()[_]) + " = '" + "'"+str(vars(entity).values()[_])+"'"+" and "
     cur.execute("SELECT * FROM " + tableName)
+
     rows = cur.fetchall()
     fieldnames=[f[0] for f in cur.description]
     dataset = []

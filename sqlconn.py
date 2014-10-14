@@ -27,12 +27,15 @@ def readTable(tableName, whereEntity = None):
     cur = con.cursor()
     where = ""
     if whereEntity is not None:
-        where += "WHERE "
+        where += " WHERE "
         for _ in xrange(0, len(vars(entity).keys())):
             if str(vars(entity).keys()[_]).startswith("_") == False and (vars(entity).values()[_] is not None):
                 #WHERE login = 'login' and password = 'password'
                 where += str(vars(entity).keys()[_]) + " = '" + "'"+str(vars(entity).values()[_])+"'"+" and "
-    cur.execute("SELECT * FROM " + tableName)
+
+    strds = "SELECT * FROM " + tableName + where
+    print strds
+    cur.execute(strds)
 
     rows = cur.fetchall()
     fieldnames=[f[0] for f in cur.description]
@@ -85,6 +88,6 @@ if __name__ == "__main__":
     x.login = "conn2nn"
     x.password = "conn2nn"
 
-    writeTable(x)
-    datase = readTable("Users")
+    #writeTable(x)
+    datase = readTable("Users", x)
     for x in xrange(0, len(datase)): print vars(datase[x])

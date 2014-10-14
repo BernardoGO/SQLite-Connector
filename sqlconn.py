@@ -12,7 +12,6 @@ class entity:
         cur.execute("pragma table_info('"+table+"')")
         rows = cur.fetchall()
         for x in range(0, len(rows)):
-
             vars(self)[rows[x][(1)]] = None
         self._tableName = table
         return self

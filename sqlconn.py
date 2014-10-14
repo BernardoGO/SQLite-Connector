@@ -73,13 +73,6 @@ def writeTable(entity, tableName=""):
 
 
 
-
-"""
-aa.uu = 11
-vars(aa)['ca'] = 332
-
-print vars(aa)
-"""
 if __name__ == "__main__":
     connect("test.db")
 

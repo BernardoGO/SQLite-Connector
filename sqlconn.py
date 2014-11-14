@@ -35,7 +35,7 @@ def readTable(tableName, whereEntity = None):
                              ""+str(vars(whereEntity).values()[_])+"'"+" and "
                 else:
                     where += str(vars(whereEntity).keys()[_]) + " = '" + \
-                             ""+str(vars(whereEntity).values()[_][0])+"'"+" "\
+                             ""+str(vars(whereEntity).values()[_][0])+"'"+"   "\
                              +str(vars(whereEntity).values()[_][1])+" "
 
     strds = "SELECT * FROM " + tableName + where[:-5]
@@ -84,7 +84,7 @@ if __name__ == "__main__":
 
     x = entity()
     x.buildEntity("Users")
-    x.login = "admin"
+    x.login = ["admin", "or"]
     x.password = "admin"
 
     #writeTable(x)

@@ -30,7 +30,7 @@ def readTable(tableName, whereEntity = None):
         for _ in xrange(0, len(vars(whereEntity).keys())):
             if str(vars(whereEntity).keys()[_]).startswith("_") == False \
                     and (vars(whereEntity).values()[_] is not None):
-                if vars(whereEntity).values()[_] is not list:
+                if isinstance(vars(whereEntity).values()[_], basestring):
                     where += str(vars(whereEntity).keys()[_]) + " = '" + \
                              ""+str(vars(whereEntity).values()[_])+"'"+" and "
                 else:
@@ -85,7 +85,7 @@ if __name__ == "__main__":
     x = entity()
     x.buildEntity("Users")
     x.login = ["admin", "or"]
-    x.password = "admin"
+    x.password = "teste"
 
     #writeTable(x)
     datase = readTable("Users", x)

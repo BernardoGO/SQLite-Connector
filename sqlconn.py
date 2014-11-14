@@ -21,7 +21,7 @@ def connect(filename):
     con = lite.connect(filename)
     con.row_factory = lite.Row
 
-def readTable(tableName, whereEntity = None):
+def readTable(tableName, whereEntity = None, useLike = False):
     global con
     cur = con.cursor()
     where = ""

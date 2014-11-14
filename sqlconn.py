@@ -30,8 +30,13 @@ def readTable(tableName, whereEntity = None):
         for _ in xrange(0, len(vars(whereEntity).keys())):
             if str(vars(whereEntity).keys()[_]).startswith("_") == False \
                     and (vars(whereEntity).values()[_] is not None):
-                where += str(vars(whereEntity).keys()[_]) + " = '" + \
-                         ""+str(vars(whereEntity).values()[_])+"'"+" and "
+                if vars(whereEntity).values()[_] is not list:
+                    where += str(vars(whereEntity).keys()[_]) + " = '" + \
+                             ""+str(vars(whereEntity).values()[_])+"'"+" and "
+                else:
+                    where += str(vars(whereEntity).keys()[_]) + " = '" + \
+                             ""+str(vars(whereEntity).values()[_][0])+"'"+" "\
+                             +str(vars(whereEntity).values()[_][1])+" "
 
     strds = "SELECT * FROM " + tableName + where[:-5]
     print strds

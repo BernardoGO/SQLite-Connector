@@ -25,16 +25,18 @@ def readTable(tableName, whereEntity = None, useLike = False):
     global con
     cur = con.cursor()
     where = ""
+    equal = " = "
+    if useLike: equal = " like "
     if whereEntity is not None:
         where += " WHERE "
         for _ in xrange(0, len(vars(whereEntity).keys())):
             if str(vars(whereEntity).keys()[_]).startswith("_") == False \
                     and (vars(whereEntity).values()[_] is not None):
                 if isinstance(vars(whereEntity).values()[_], basestring):
-                    where += str(vars(whereEntity).keys()[_]) + " = '" + \
+                    where += str(vars(whereEntity).keys()[_]) + " "+equal+" '" + \
                              ""+str(vars(whereEntity).values()[_])+"'"+" and "
                 else:
-                    where += str(vars(whereEntity).keys()[_]) + " = '" + \
+                    where += str(vars(whereEntity).keys()[_]) + " "+equal+" '" + \
                              ""+str(vars(whereEntity).values()[_][0])+"'"+"   "\
                              +str(vars(whereEntity).values()[_][1])+" "
 
@@ -84,9 +86,9 @@ if __name__ == "__main__":
 
     x = entity()
     x.buildEntity("Users")
-    x.login = ["admin", "or"]
+    x.login = ["adm%", "or"]
     x.password = "teste"
 
     #writeTable(x)
-    datase = readTable("Users", x)
+    datase = readTable("Users", x, useLike=True)
     for x in xrange(0, len(datase)): print vars(datase[x])

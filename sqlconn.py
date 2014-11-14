@@ -71,6 +71,7 @@ def writeTable(entity, tableName=""):
             values += "'"+str(vars(entity).values()[_])+"'"+","
     ax = lambda __:__[:-1];
     strs = "INSERT INTO "+tableName+" ("+ax(fields)+") VALUES ("+ax(values)+")"
+
     print strs
     cur.execute(strs)
     affectedRows = cur.rowcount
